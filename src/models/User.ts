@@ -1,13 +1,21 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("products")
-class Product {
+@Entity("users")
+class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
   @Column()
   name: string;
-  @Column("")
-  SKU: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  isAdmin: boolean;
 }
 
-export default Product;
+export default User;

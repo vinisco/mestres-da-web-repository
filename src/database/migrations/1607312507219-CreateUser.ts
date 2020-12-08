@@ -1,14 +1,14 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export default class CreatProducts1607214068475 implements MigrationInterface {
+export class CreteUser1607312507219 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "products",
+        name: "users",
         columns: [
           {
             name: "id",
-            type: "varchar",
+            type: "uuid",
             isPrimary: true,
             generationStrategy: "uuid",
             default: "uuid_generate_v4()",
@@ -18,12 +18,28 @@ export default class CreatProducts1607214068475 implements MigrationInterface {
             type: "varchar",
             isNullable: false,
           },
+          {
+            name: "email",
+            type: "varchar",
+            isNullable: false,
+            isUnique: true,
+          },
+          {
+            name: "password",
+            type: "varchar",
+            isNullable: false,
+          },
+          {
+            name: "isAdmin",
+            type: "boolean",
+            isNullable: true,
+          },
         ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("products");
+    await queryRunner.dropTable("users");
   }
 }

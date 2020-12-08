@@ -7,20 +7,35 @@ import {
 } from "typeorm";
 
 import User from "./User";
-@Entity("products")
-class Product {
+import Product from "./Product";
+
+@Entity("sku")
+class Sku {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
-  name: string;
+  type: string;
 
   @Column()
+  subtype: string;
+
+  @Column("")
+  quantity: number;
+
+  @Column("")
+  product_id: string;
+
+  @Column("")
   user_id: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   user: User;
+
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: "product_id" })
+  product: Product;
 }
 
-export default Product;
+export default Sku;
