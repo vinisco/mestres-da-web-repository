@@ -56,9 +56,3 @@ yarn dev:server
 ## Testar os endPoints e consumir a API
 
 - [Para os devidos testes e a utilização da Api](https://documenter.getpostman.com/view/11502620/TVmTaZeE/)
-
-yarn install
-
-Execute a aplicação:
-
-dev:server
