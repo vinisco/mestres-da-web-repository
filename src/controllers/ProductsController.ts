@@ -1,27 +1,27 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-
-import Product from "../models/Product";
 import ProductServices from "../services/ProductServices";
 
 export default class ProductsController {
   public async getAllProducts(req: Request, res: Response) {
-    const authHeaderUser = req.user.id;
+    const user_id = req.user.id;
+    const filter = req.query;
+
     const productServices = new ProductServices();
     const products = await productServices.getAllService({
-      user_id: authHeaderUser,
+      user_id,
+      filter,
     });
 
     return res.json(products);
   }
   public async getProduct(req: Request, res: Response) {
-    const authHeaderUser = req.user.id;
+    const user_id = req.user.id;
     const { id } = req.params;
 
     const getProduct = new ProductServices();
     const product = await getProduct.getService({
       id: id,
-      user_id: authHeaderUser,
+      user_id,
     });
 
     return res.json(product);
@@ -54,9 +54,10 @@ export default class ProductsController {
     const user_id = req.user.id;
     const { id } = req.params;
     const { name } = req.body;
+    console.log(id);
 
-    const deleteProduct = new ProductServices();
-    const product = await deleteProduct.updateService({
+    const updateProduct = new ProductServices();
+    const product = await updateProduct.updateService({
       id,
       user_id,
       name,

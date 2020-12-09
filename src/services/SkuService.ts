@@ -150,7 +150,7 @@ class SkuServices {
     quantity,
     product_id,
     user_id,
-  }: RequestUpdate): Promise<Sku | undefined> {
+  }: RequestUpdate): Promise<Sku> {
     const userRepository = getRepository(User);
     const skuRepository = getRepository(Sku);
 
@@ -161,6 +161,10 @@ class SkuServices {
     }
 
     const skuToUpdate = await skuRepository.findOne({ id });
+
+    if (skuToUpdate === undefined) {
+      throw new ApplicationError("Sku not found", 400);
+    }
 
     if (skuToUpdate) {
       skuToUpdate.type = type ? type : skuToUpdate.type;

@@ -20,7 +20,17 @@ export default function ensureAuthenticated(
     throw new ApplicationError("JWT token is missing", 401);
   }
 
-  const [, token] = authHeader.split(" ");
+  const parts = authHeader.split(" ");
+  if (parts.length !== 2) throw new ApplicationError("Token error", 401);
+
+  const [scheme, token] = parts;
+
+  if (!/^Bearer$/i.test(scheme))
+    throw new ApplicationError("Token malformed", 401);
+
+  verify(token, authConfig.jwt.secret, (err) => {
+    if (err) throw new ApplicationError("Invalid Token", 401);
+  });
 
   const decoded = verify(token, authConfig.jwt.secret);
 

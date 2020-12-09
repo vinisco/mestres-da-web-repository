@@ -27,6 +27,7 @@ interface RequestGet {
 
 interface RequestGetAll {
   user_id: string;
+  filter: any;
 }
 
 class ProductServices {
@@ -78,7 +79,10 @@ class ProductServices {
 
     return product;
   }
-  public async getAllService({ user_id }: RequestGetAll): Promise<Product[]> {
+  public async getAllService({
+    user_id,
+    filter,
+  }: RequestGetAll): Promise<Product[]> {
     const userRepository = getRepository(User);
     const productRepository = getRepository(Product);
 
@@ -93,7 +97,7 @@ class ProductServices {
     }
 
     const product = await productRepository.find({
-      where: { user_id: user_id },
+      where: filter,
     });
 
     return product;
@@ -128,7 +132,7 @@ class ProductServices {
     id,
     name,
     user_id,
-  }: RequestUpdate): Promise<Product | undefined> {
+  }: RequestUpdate): Promise<Product> {
     const userRepository = getRepository(User);
     const productRepository = getRepository(Product);
 
@@ -137,8 +141,11 @@ class ProductServices {
     if (user?.role !== "administer") {
       throw new ApplicationError("User not allowed", 400);
     }
+    const productToUpdate = await productRepository.findOne({ id: id });
 
-    const productToUpdate = await productRepository.findOne({ id });
+    if (productToUpdate === undefined) {
+      throw new ApplicationError("Product not found", 400);
+    }
 
     if (productToUpdate) {
       productToUpdate.name = name ? name : productToUpdate.name;
