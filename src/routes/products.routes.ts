@@ -8,7 +8,10 @@ const productsRouter = Router();
 
 productsRouter.use(ensureAuthenticated);
 
-productsRouter.get("/", productController.getProducts);
+productsRouter.get("/", productController.getAllProducts);
+productsRouter.get("/:id", productController.getProduct);
 productsRouter.post("/", productController.createProduct);
+productsRouter.delete("/:id", productController.deleteProduct);
+productsRouter.put("/:id", productController.updateProduct);
 
 export default productsRouter;

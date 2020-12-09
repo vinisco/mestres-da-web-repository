@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { hash } from "bcryptjs";
 
-import AppError from "../errors/AppError";
+import ApplicationError from "../errors/ApplicationError";
 
 import User from "../models/User";
 
@@ -9,14 +9,14 @@ interface Request {
   name: string;
   email: string;
   password: string;
-  isAdmin: boolean;
+  role: string;
 }
-class CreateUserService {
+class UserService {
   public async execute({
     name,
     email,
     password,
-    isAdmin,
+    role,
   }: Request): Promise<User> {
     const userRepository = getRepository(User);
 
@@ -25,19 +25,22 @@ class CreateUserService {
     });
 
     if (checkIfEmailExist) {
-      throw new AppError(
+      throw new ApplicationError(
         "User already registered with this email address",
         400
       );
     }
 
-    if (isAdmin) {
+    if (role === "administer") {
       const checkIfRoleExist = await userRepository.findOne({
-        where: { isAdmin },
+        where: { role },
       });
 
       if (checkIfRoleExist) {
-        throw new AppError("User administrator is already registered", 401);
+        throw new ApplicationError(
+          "User administer is already registered",
+          401
+        );
       }
     }
     const hashedPassword = await hash(password, 8);
@@ -45,7 +48,7 @@ class CreateUserService {
       name,
       email,
       password: hashedPassword,
-      isAdmin,
+      role,
     });
 
     await userRepository.save(user);
@@ -54,4 +57,4 @@ class CreateUserService {
   }
 }
 
-export default CreateUserService;
+export default UserService;

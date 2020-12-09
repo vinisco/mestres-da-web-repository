@@ -69,6 +69,8 @@ export default class CreatSku1607312648792 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey("sku", "users");
+    await queryRunner.dropForeignKey("sku", "products");
     await queryRunner.dropTable("sku");
   }
 }

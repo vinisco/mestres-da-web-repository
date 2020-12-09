@@ -30,9 +30,9 @@ export class CreteUser1607312507219 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: "isAdmin",
-            type: "boolean",
-            isNullable: true,
+            name: "role",
+            type: "varchar",
+            isNullable: false,
           },
         ],
       })

@@ -33,7 +33,7 @@ class Sku {
   @JoinColumn({ name: "user_id" })
   user: User;
 
-  @ManyToOne(() => Product)
+  @ManyToOne(() => Product, { onDelete: "CASCADE" })
   @JoinColumn({ name: "product_id" })
   product: Product;
 }

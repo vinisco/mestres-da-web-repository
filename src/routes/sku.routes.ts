@@ -7,8 +7,10 @@ const skuRouter = Router();
 const skuController = new SkuController();
 skuRouter.use(ensureAuthenticated);
 
-skuRouter.get("/sku", skuController.getSku);
-skuRouter.post("/sku", skuController.createSku);
-skuRouter.put("/sku", skuController.updateSku);
+skuRouter.get("/", skuController.getAllSku);
+skuRouter.get("/:id", skuController.getSku);
+skuRouter.post("/", skuController.createSku);
+skuRouter.put("/:id", skuController.updateSku);
+skuRouter.delete("/:id", skuController.deleteSku);
 
 export default skuRouter;

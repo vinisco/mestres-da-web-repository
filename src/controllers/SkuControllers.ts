@@ -1,18 +1,25 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
 
-import Sku from "../models/Sku";
-import CreateSkuService from "../services/CreateSkuService";
+import CreateSkuService from "../services/SkuService";
+import SkuService from "../services/SkuService";
 
 export default class SkuController {
+  public async getAllSku(req: Request, res: Response) {
+    const user_id = req.user.id;
+    const filter = req.query;
+    const skuService = new SkuService();
+
+    const sku = await skuService.getAllService({ user_id, filter });
+
+    return res.json(sku);
+  }
   public async getSku(req: Request, res: Response) {
     const user_id = req.user.id;
-    const product_id = req.body.product_id;
-    const skuRepository = getRepository(Sku);
-    const sku = await skuRepository.find({
-      product_id: product_id,
-      user_id: user_id,
-    });
+    const id = req.params.id;
+    const skuService = new SkuService();
+
+    const sku = await skuService.getService({ user_id, id });
+
     return res.json(sku);
   }
 
@@ -20,7 +27,7 @@ export default class SkuController {
     const user_id = req.user.id;
     const { type, subtype, quantity, product_id } = req.body;
     const createSku = new CreateSkuService();
-    const sku = await createSku.execute({
+    const sku = await createSku.createService({
       type,
       subtype,
       quantity,
@@ -30,15 +37,29 @@ export default class SkuController {
 
     return res.json(sku);
   }
-
   public async updateSku(req: Request, res: Response) {
-    const { type, subtype, quantity, product_id, user_id } = req.body;
+    const user_id = req.user.id;
+    const id = req.params.id;
+    const { type, subtype, quantity, product_id } = req.body;
     const createSku = new CreateSkuService();
-    const sku = await createSku.execute({
+    const sku = await createSku.updateService({
+      id,
       type,
       subtype,
       quantity,
       product_id,
+      user_id,
+    });
+
+    return res.json(sku);
+  }
+  public async deleteSku(req: Request, res: Response) {
+    const user_id = req.user.id;
+    const { id } = req.params;
+
+    const skuService = new SkuService();
+    const sku = await skuService.deleteService({
+      id,
       user_id,
     });
 

@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
 
-import CreateUserService from "../services/CreateUserService";
+import UserService from "../services/UserService";
 
 export default class UsersController {
-  public async create(req: Request, res: Response): Promise<Response> {
-    const { name, email, password, isAdmin } = req.body;
+  public async createUser(req: Request, res: Response): Promise<Response> {
+    const { name, email, password, role } = req.body;
 
-    const createUser = new CreateUserService();
+    const createUser = new UserService();
 
     const user = await createUser.execute({
       name: name,
       email: email,
       password: password,
-      isAdmin: isAdmin,
+      role: role,
     });
 
     user.password = "nothing to be shown";

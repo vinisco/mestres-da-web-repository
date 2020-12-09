@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 
 import User from "./User";
+import Sku from "./Sku";
 @Entity("products")
 class Product {
   @PrimaryGeneratedColumn("uuid")
@@ -21,6 +23,9 @@ class Product {
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   user: User;
+
+  @OneToMany(() => Sku, (sku) => sku.product_id)
+  sku: Sku[];
 }
 
 export default Product;
