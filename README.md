@@ -15,7 +15,7 @@ Todos os produtos devem apresentar a opção de cadastros de SKUs, ou seja, de v
 Para executar o projeto, será necessário:
 
 - [Docker: para criar o banco de dados Postegres da aplicação](https://www.docker.com/)
-- [Yarn: para usar como gerenciador de pacotes pro projeto](hhttps://yarnpkg.com/lang/en/docs/install/)
+- [Yarn: para usar como gerenciador de pacotes pro projeto](https://yarnpkg.com/lang/en/docs/install/)
 - [Node.js: para executar os nossos códigos](https://nodejs.org/en/download/)
 
 ## Instalando
