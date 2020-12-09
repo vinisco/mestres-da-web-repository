@@ -1,7 +1,5 @@
 # Desafio Back-end Mestres da WEB
 
-Antes de mais nada, gostaríamos de agradecer pelo interesse em integrar nossa equipe! Abaixo estão as instruções para que você dê início ao teste.
-
 ## Descrição
 
 Com o atual cenário da pandemia, as empresas de todos os seguimentos tiveram que acelerar seu processo tecnológico, afim de continuar entregando valor para seu consumidor.
