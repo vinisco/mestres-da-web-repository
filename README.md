@@ -55,4 +55,4 @@ yarn dev:server
 
 ## Testar os endPoints e consumir a API
 
-- [Para os devidos testes e a utilização da Api](https://documenter.getpostman.com/view/11502620/TVmTaZeE/)
+- [Documentação: para os devidos testes e a utilização da Api](https://documenter.getpostman.com/view/11502620/TVmTaZeE/)
