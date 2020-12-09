@@ -14,7 +14,7 @@ Todos os produtos devem apresentar a opção de cadastros de SKUs, ou seja, de v
 
 Para executar o projeto, será necessário:
 
-- [Docker: para criar o banco de dados Postegres da aplicação](https://www.docker.com/)
+- [Docker: para criar o banco de dados PostgreSQL da aplicação](https://www.docker.com/)
 - [Yarn: para usar como gerenciador de pacotes pro projeto](https://yarnpkg.com/lang/en/docs/install/)
 - [Node.js: para executar os nossos códigos](https://nodejs.org/en/download/)
 
@@ -33,7 +33,7 @@ Depois utilizar o yarn install dentro do diretório para instalar as dependencia
 yarn install
 ```
 
-Logo após, criar um container no Docker com a imagem do Postgres:
+Logo após, criar um container no Docker com a imagem do PostgreSQL:
 
 ```shell
 docker run --name desafio_mestres_da_web -e  POSTGRES_PASSWORD=desafio -p 5433:5432 -d postgres
